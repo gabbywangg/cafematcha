@@ -29,7 +29,6 @@ function preload() {
   letter = loadImage("letter.png");
   myFont = loadFont("matchafont.ttf");
   plop = loadSound("plop.mp3")
-  celly = loadSound("celly.mp3");
 }
 
 function setup() {
@@ -123,10 +122,6 @@ function mousePressed() {
     showMail = false;
     showLetter = true;
     showDialog = false;
-
-    if (celly && soundEnabled) {
-  celly.play();
-}
   }
 }
 
