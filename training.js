@@ -145,7 +145,7 @@ function draw() {
 
   // syrup & honey (open if dragging, closed if not)
   if (!syrupDragging) image(syrup, syrupX, syrupY, syrupW, syrupH);
-  else image(syrupopen, syrupX, syrupY, 80, syrupH);
+  else image(syrupopen, syrupX, syrupY, 90, syrupH);
 
   if (!honeyDragging) image(honey, honeyX, honeyY, honeyW, honeyH);
   else image(honeyopen, honeyX, honeyY, 70, honeyH);
@@ -383,14 +383,22 @@ function mousePressed() {
       mouseY > kettleY && mouseY < kettleY + kettleH) kettleDragging = true;
 
   // whisk
-  if (dialogState === 4 && !whiskPickedUp &&
+if (dialogState === 4) {
+  if (!whiskPickedUp &&
       mouseX > whiskStandX && mouseX < whiskStandX + whiskW &&
       mouseY > whiskStandY && mouseY < whiskStandY + whiskH) {
+    // first time pick up from stand
     whiskPickedUp = true;
     whiskDragging = true;
+  } else if (whiskPickedUp &&
+             mouseX > whiskX && mouseX < whiskX + whiskW &&
+             mouseY > whiskY && mouseY < whiskY + whiskH) {
+    // allow picking it back up after being dropped
+    whiskDragging = true;
   }
+}
   
-  // to-go cup
+  // to go cup
   if (dialogState === 5 && !glass1Placed &&
       mouseX > glass1X && mouseX < glass1X + glass1W &&
       mouseY > glass1Y && mouseY < glass1Y + glass1H) glass1Dragging = true;
