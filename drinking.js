@@ -44,13 +44,11 @@ cnv.parent("sketch");
 function draw() {
   background(bg);
 
-  // draw the matcha cup depending on state
   if (cupState === "fullmatcha") image(fullmatcha, matchaX, matchaY, matchaW, matchaH);
   if (cupState === "halfmatcha") image(halfmatcha, matchaX, matchaY, matchaW, matchaH);
   if (cupState === "onefourthmatcha") image(onefourthmatcha, matchaX, matchaY, matchaW, matchaH);
   if (cupState === "fullice") image(fullice, matchaX, matchaY, matchaW, matchaH);
 
-  // show mail if dialog 1 is active
   if (dialogState === 1 && !showLetter) {
     showMail = true;
   }
@@ -63,13 +61,11 @@ function draw() {
     image(letter, 225, 50, 350, 400);
   }
 
-  // draw dialog box if active
   if (showDialog) {
     drawDialog(dialogs[dialogState]);
   }
 }
 
-// Toggle button hookup
 window.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("toggle-sound");
   toggleBtn.addEventListener("click", () => {
@@ -94,23 +90,19 @@ function drawDialog(txt) {
       rect(mailX - 1, mailY - 1, mailW + 2, mailH + 2, 2);
       pop();
  }
-  // green rectangle background
    fill(110, 142, 83, 230);
       noStroke();
   rect(boxX, boxY, boxW, boxH, 20);
 
-  // dialog text
   fill(255);
   text(txt, boxX + boxW / 2, boxY + boxH / 2);
 }
 
 function mousePressed() {
-  // play plop every click
   if (plop && soundEnabled && !plop.isPlaying()) {
   plop.play();
 }
 
-  // drink matcha
   if (
     dialogState == 0 &&
     mouseX > matchaX &&
@@ -129,7 +121,6 @@ function mousePressed() {
     }
   }
 
-  // click mail to open letter
   if (
     showMail &&
     mouseX > mailX &&
@@ -139,7 +130,7 @@ function mousePressed() {
   ) {
     showMail = false;
     showLetter = true;
-    showDialog = false; // hide dialog when letter opens
+    showDialog = false;
 
     if (celly && soundEnabled) {
   celly.play();
