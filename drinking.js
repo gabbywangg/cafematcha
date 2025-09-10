@@ -66,14 +66,6 @@ function draw() {
   }
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  const toggleBtn = document.getElementById("toggle-sound");
-  toggleBtn.addEventListener("click", () => {
-    soundEnabled = !soundEnabled;
-    toggleBtn.textContent = soundEnabled ? "sound on" : "sound off";
-  });
-});
-
 
 function drawDialog(txt) {
   let boxX = 50;
@@ -137,3 +129,11 @@ function mousePressed() {
 }
   }
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.getElementById("toggle-sound");
+  toggleBtn.addEventListener("click", () => {
+    soundEnabled = !soundEnabled;
+    toggleBtn.textContent = soundEnabled ? "sound on" : "sound off";
+  });
+});
