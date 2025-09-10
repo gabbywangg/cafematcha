@@ -14,7 +14,6 @@ let chawan, filledchawan, ice, halfice, fullice;
 let pouringmilk, milkglass;
 let fullScoop; 
 
-// dialog
 let dialogState = 0;
 let dialogs = [
   "Yay! Today I'll walk you through how to make a matcha that you can take to go. I'll play some music while we work. (click to continue)", 
@@ -70,7 +69,7 @@ let glass1Placed = false;
 //circle
 let glass1TargetX = 490, glass1TargetY = 320, glass1TargetR = 30;
 
-// cup states (ice)
+// cup state
 let cupState = "empty"; // empty → halfice → fullice
 
 // ice
@@ -143,14 +142,13 @@ cnv.parent("sketch");
 function draw() {
   background(bg);
 
-  // static objects
   image(bluemug, 100, 43, 50, 50);
   image(orangemug, 180, 43, 54, 50);
   image(stripedmug, 270, 44, 54, 50);
   image(glass2, 440, 33, 45, 60);
   image(matchacan, 200, 155, 38, 45);
 
-  // syrup & honey (open if dragging, closed if not)
+  // sweetener
   if (!syrupDragging) image(syrup, syrupX, syrupY, syrupW, syrupH);
   else image(syrupopen, syrupX, syrupY, 90, syrupH);
 
@@ -161,7 +159,7 @@ function draw() {
   if (!milkDragging) image(milk, milkX, milkY, milkW, milkH);
   else image(pouringmilk, milkX, milkY, 90, milkH);
 
-  // chawan target circle
+  // circle
   if (dialogState === 1 && !chawanPlaced) {
     push();
     noFill();
@@ -178,7 +176,6 @@ function draw() {
 } else {
   image(chawan, chawanX, chawanY, chawanW, chawanH);
 }
-
 
   // scoop
   if (scoopFull) {
@@ -210,14 +207,13 @@ function draw() {
     }
   }
 
-  // whisk stand / whisk
+  // whisk
   if (!whiskPickedUp) {
     image(whiskonstand, whiskStandX, whiskStandY, whiskW, whiskH);
   } else {
     image(whisk, whiskX, whiskY, whiskW, whiskH);
   }
 
-  // whisk hover timer
   let whiskAboveChawan = whiskX < chawanX + chawanW &&
                          whiskX + whiskW > chawanX &&
                          whiskY < chawanY + chawanH &&
@@ -238,7 +234,7 @@ function draw() {
     whiskHoverStart = 0;
   }
 
-  // to-go cup target circle
+  // circle 2
   if (dialogState === 5 && !glass1Placed) {
     push();
     noFill();
@@ -248,17 +244,14 @@ function draw() {
     pop();
   }
 
-  // draw cup with state
   if (cupState === "empty") image(glass1, glass1X, glass1Y, glass1W, glass1H);
   if (cupState === "halfice") image(halfice, glass1X, glass1Y, glass1W, glass1H);
   if (cupState === "fullice") image(fullice, glass1X, glass1Y, glass1W, glass1H);
   if (cupState === "milkglass") image(milkglass, glass1X, glass1Y, glass1W, glass1H);
   if (cupState === "fullmatcha") image(fullmatcha, glass1X, glass1Y, glass1W, glass1H);
 
-  // draw dragging ice
   if (iceDragging) image(ice, iceX, iceY, iceW, iceH);
 
-  // dialog box
   if (showDialog) {
     push();
     fill(110, 142, 83, 230);
@@ -271,7 +264,6 @@ function draw() {
     pop();
   }
 
-  // sweetener hover check
   let sweetenerAboveGlass = glass1Placed &&
                             ((syrupDragging &&
                               syrupX < glass1X + glass1W && syrupX + syrupW > glass1X &&
@@ -287,7 +279,6 @@ function draw() {
       showDialog = true;
       sweetenerHoverStart = 0;
 
-      // snap back bottles after success
       syrupDragging = false;
       honeyDragging = false;
       syrupX = 395; syrupY = 120;
@@ -304,7 +295,6 @@ function draw() {
   if (dialogState === 8 && milkAboveGlass) {
   if (milkHoverStart === 0) milkHoverStart = millis();
   if (millis() - milkHoverStart > milkHoverTime) {
-    // transform glass to milkglass
     if (cupState === "fullice") {
       cupState = "milkglass";
     }
@@ -332,11 +322,10 @@ if (dialogState === 9 && matchaAboveGlass) {
 
   if (millis() - matchaHoverStart > matchaHoverTime) {
     cupState = "fullmatcha";
-    chawanFilled = false; // reset chawan to empty
+    chawanFilled = false;
     pouringMatcha = false;
     filledchawanDragging = false;
 
-    // send chawan back to shelf
     chawanX = 260; 
     chawanY = 160;
 
@@ -349,16 +338,14 @@ if (dialogState === 9 && matchaAboveGlass) {
   matchaHoverStart = 0;
 }
 
-    // draw poster
   image(img, imgX, imgY, imgW, imgH);
 
-  // glow effect when hover (only on last dialog step)
   if (dialogState === 10 &&
       mouseX > imgX && mouseX < imgX + imgW &&
       mouseY > imgY && mouseY < imgY + imgH) {
     push();
     noFill();
-    stroke(222, 93, 131);  // pink glow
+    stroke(222, 93, 131);
     strokeWeight(6);
     rect(imgX - 4, imgY - 4, imgW + 8, imgH + 8, 10);
     pop();
@@ -367,7 +354,6 @@ if (dialogState === 9 && matchaAboveGlass) {
 }
 
 function mousePressed() {
-  // advance from intro
   if (plop && soundEnabled && !plop.isPlaying()) {
   plop.play();
 }
@@ -397,24 +383,19 @@ if (dialogState === 4) {
   if (!whiskPickedUp &&
       mouseX > whiskStandX && mouseX < whiskStandX + whiskW &&
       mouseY > whiskStandY && mouseY < whiskStandY + whiskH) {
-    // first time pick up from stand
     whiskPickedUp = true;
     whiskDragging = true;
   } else if (whiskPickedUp &&
              mouseX > whiskX && mouseX < whiskX + whiskW &&
              mouseY > whiskY && mouseY < whiskY + whiskH) {
-    // allow picking it back up after being dropped
     whiskDragging = true;
   }
 }
-
   
-  // to-go cup
   if (dialogState === 5 && !glass1Placed &&
       mouseX > glass1X && mouseX < glass1X + glass1W &&
       mouseY > glass1Y && mouseY < glass1Y + glass1H) glass1Dragging = true;
 
-  // ice maker click
   if (dialogState === 6 &&
       mouseX > 55 && mouseX < 55 + 120 &&
       mouseY > 230 && mouseY < 230 + 80) {
@@ -438,21 +419,19 @@ if (dialogState === 4) {
       mouseX > milkX && mouseX < milkX + milkW &&
       mouseY > milkY && mouseY < milkY + milkH) milkDragging = true;
   
-  // filled chawan
+  // chawan
   if (dialogState === 9 && chawanFilled &&
       mouseX > chawanX && mouseX < chawanX + chawanW &&
       mouseY > chawanY && mouseY < chawanY + chawanH) {
     filledchawanDragging = true;
   }
 
-  // poster click to go to new scene
   if (dialogState === 10 &&
       mouseX > imgX && mouseX < imgX + imgW &&
       mouseY > imgY && mouseY < imgY + imgH) {
     window.location.href = "drinking.html";
   }
 }
-
 
 function mouseDragged() {
   if (chawanDragging) {
@@ -507,7 +486,6 @@ function mouseDragged() {
 }
 
 function mouseReleased() {
-  // chawan
   if (chawanDragging) {
     let d = dist(chawanX + chawanW / 2, chawanY + chawanH / 2, chawanTargetX, chawanTargetY);
     if (d < chawanTargetR) {
@@ -520,7 +498,6 @@ function mouseReleased() {
     chawanDragging = false;
   }
 
-  // scoop
   if (scoopDragging) {
     if (!scoopFull &&
         scoopX < 200 + 38 && scoopX + scoopW > 200 &&
@@ -543,13 +520,10 @@ function mouseReleased() {
     scoopDragging = false;
   }
 
-  // kettle
   if (kettleDragging) kettleDragging = false;
 
-  // whisk
   if (whiskDragging) whiskDragging = false;
   
-  // to-go cup
   if (glass1Dragging) {
     let d = dist(glass1X + glass1W / 2, glass1Y + glass1H / 2, glass1TargetX, glass1TargetY);
     if (d < glass1TargetR) {
@@ -562,7 +536,6 @@ function mouseReleased() {
     glass1Dragging = false;
   }
 
-  // ice release
   if (iceDragging) {
     let iceAboveGlass = glass1Placed &&
                         iceX < glass1X + glass1W && iceX + iceW > glass1X &&
@@ -579,7 +552,6 @@ function mouseReleased() {
     iceDragging = false;
   }
 
-  // syrup/honey release reset (always snap back to shelf)
   if (syrupDragging) {
     syrupDragging = false;
     syrupX = 395;
@@ -602,10 +574,10 @@ window.addEventListener("DOMContentLoaded", () => {
     soundEnabled = !soundEnabled;
 
     if (soundEnabled) {
-      mySound.loop();   // resume background music
+      mySound.loop();  
       toggleBtn.textContent = "sound on";
     } else {
-      mySound.stop();   // stop background music immediately
+      mySound.stop();  
       toggleBtn.textContent = "sound off";
     }
   });
