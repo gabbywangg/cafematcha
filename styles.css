@@ -4,8 +4,8 @@ html, body {
 }
 
 body {
-  font-family: Arial, sans-serif;
-  color: #0d5225;
+  font-family: "Trebuchet MS", sans-serif;
+  color: #032f0d;
   text-align: center;
 
   background: url("background.png") no-repeat center center fixed;
@@ -18,19 +18,61 @@ body {
 h1 {
   font-family: 'Pacifico', cursive;
   font-size: 3rem;
-  color: #093814;
-  margin-top: 30px;
+  color: #361f05;
+  margin-top: 10px;    
+  margin-bottom: 10px; 
   text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
 }
 
+#sketch canvas {
+  border: 10px solid #52330f;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  margin-top: 0;     
+}
+
+
 .controls {
   display: inline-flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
-  background: rgba(5, 57, 21, 0.75);
-  padding: 8px 12px;
-  border-radius: 8px;
+  background: #52330f;
+  padding: 9px 12px;
+  border-radius: 6px;
   backdrop-filter: blur(4px);
-  margin: 20px auto; 
-  color: #7bb277;
+  margin: 10px auto; 
+  color: #dfe9df;
+}
+
+.controls button {
+  background-color: #c6ac8e;
+  border: 2px ;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: .93rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #392007;
+  font-family: "Trebuchet MS", sans-serif;
+  box-shadow: 2px 3px 6px rgba(0,0,0,0.25);
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.controls button:hover {
+  background-color: #ecd8bd;
+  transform: scale(1.07);
+}
+
+.controls button:active {
+  transform: scale(0.95);
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 12px 0; 
+  color: #361f05;             
+  font-size: 0.9rem;
+  position: fixed; 
+  bottom: 0;
 }
