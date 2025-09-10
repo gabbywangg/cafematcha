@@ -54,7 +54,6 @@ function setup() {
 cnv.parent("sketch"); 
   textFont(myFont);
 
-  // Add all kitchen objects with tooltip text
   objects = [
     {img: glass2, x:440, y:33, w:45, h:60, tip:"glass"},
     {img: glass1, x:360, y:38, w:49, h:55, tip:"to go cup"},
@@ -168,7 +167,6 @@ function mousePressed() {
   }
 }
 
-// Toggle button hookup
 window.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("toggle-sound");
   toggleBtn.addEventListener("click", () => {
