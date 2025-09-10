@@ -72,17 +72,16 @@ if (plop && soundEnabled && !plop.isPlaying()) {
   }
 }
 
-// Toggle button hookup
 window.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("toggle-sound");
   toggleBtn.addEventListener("click", () => {
     soundEnabled = !soundEnabled;
 
     if (soundEnabled) {
-      mySound.loop();   // resume background music
+      mySound.loop();   
       toggleBtn.textContent = "sound on";
     } else {
-      mySound.stop();   // stop background music immediately
+      mySound.stop();  
       toggleBtn.textContent = "sound off";
     }
   });
