@@ -17,7 +17,6 @@ function preload() {
   img = loadImage("hiringsign.png");
   myFont = loadFont("matchafont.ttf")
   mySound = loadSound('street.mp3');
-  myClick = loadSound('click.wav');
   plop = loadSound("plop.mp3")
 }
 
@@ -38,11 +37,6 @@ function draw() {
 
   if (mouseX > imgX && mouseX < imgX + imgW &&
       mouseY > imgY && mouseY < imgY + imgH) {
- 
-    if (soundEnabled && !hoverActive) {
-  myClick.play();
-  hoverActive = true;
-}
 
     push();
     noFill();
