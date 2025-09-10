@@ -77,8 +77,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
 function drawDialog(txt) {
   let boxX = 50;
-  let boxY = height - 120;
-  let boxW = width - 100;
+  let boxY = 380;
+  let boxW = 700;
   let boxH = 80;
   
  if (mouseX > mailX && mouseX < mailX + mailW &&
