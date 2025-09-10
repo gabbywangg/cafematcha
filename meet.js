@@ -91,7 +91,6 @@ function mousePressed() {
   }
 }
 
-// Toggle button hookup
 window.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("toggle-sound");
   toggleBtn.addEventListener("click", () => {
